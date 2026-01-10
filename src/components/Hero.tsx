@@ -32,20 +32,20 @@ export function Hero() {
         </OnceUIProvider>
       </div>
 
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/30 via-background/60 to-background" />
+      <div className="absolute inset-0 z-10 bg-linear-to-b from-background/30 via-background/60 to-background" />
 
       <div className="relative z-20 flex min-h-screen flex-col items-center justify-center px-6 text-center">
-        <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+        <h1 className="max-w-5xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           Frontend Developer building{" "}
           <span className="text-primary">fast, accessible</span> web interfaces
         </h1>
 
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+        <p className="mt-12 text-lg text-muted-foreground sm:text-2xl">
           4+ years experience shipping frontend features used by thousands of
           users
         </p>
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <Button size="lg" onClick={() => scrollToSection("contact")}>
             Contact Me
           </Button>
