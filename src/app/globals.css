@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 260 20% 5%;
+  --foreground: 260 10% 95%;
+  --card: 260 20% 8%;
+  --card-foreground: 260 10% 95%;
+  --popover: 260 20% 8%;
+  --popover-foreground: 260 10% 95%;
+  --primary: 270 70% 60%;
+  --primary-foreground: 260 10% 98%;
+  --secondary: 260 15% 15%;
+  --secondary-foreground: 260 10% 90%;
+  --muted: 260 15% 15%;
+  --muted-foreground: 260 10% 60%;
+  --accent: 270 50% 20%;
+  --accent-foreground: 260 10% 95%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 260 20% 18%;
+  --input: 260 20% 18%;
+  --ring: 270 70% 60%;
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px hsl(270 70% 60% / 0.4), 0 0 40px hsl(270 70% 60% / 0.2);
+}
+
+.glow-primary:hover {
+  box-shadow: 0 0 25px hsl(270 70% 60% / 0.5), 0 0 50px hsl(270 70% 60% / 0.3);
+}
