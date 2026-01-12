@@ -46,7 +46,7 @@ export function Hero() {
                   intensity: 17,
                   repeat: true,
                 }}
-                fps={60}
+                fps={24}
               />
             </m.div>
           )}
@@ -56,10 +56,10 @@ export function Hero() {
 
         <div className="relative z-20 flex min-h-screen flex-col items-center justify-center px-6 text-center">
           <m.h1
-            className="max-w-5xl text-4xl font-normal tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="max-w-5xl text-4xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-20"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
           >
             Frontend Developer building{" "}
             <span className="text-primary">fast, accessible</span> web
@@ -68,9 +68,9 @@ export function Hero() {
 
           <m.p
             className="mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
           >
             4+ years experience shipping frontend features used by thousands of
             users

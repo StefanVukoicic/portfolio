@@ -1,9 +1,11 @@
 import { Hero } from "@/components/Hero";
+import { About } from "@/components/About";
 
 export default function Home() {
   return (
     <main>
       <Hero />
+      <About />
 
       <section id="projects" className="min-h-screen px-6 py-24">
         <div className="mx-auto max-w-6xl">
