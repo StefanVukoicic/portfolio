@@ -56,7 +56,7 @@ export function Hero() {
 
         <div className="relative z-20 flex min-h-screen flex-col items-center justify-center px-6 text-center">
           <m.h1
-            className="max-w-5xl text-4xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-20"
+            className="max-w-5xl text-4xl font-medium tracking-tight leading-8 sm:text-5xl md:text-6xl lg:text-7xl md:leading-18"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}

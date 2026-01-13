@@ -23,7 +23,7 @@ export function SkillCard({
     cloneElement(
       icon as ReactElement<{ className?: string; strokeWidth?: number }>,
       {
-        className: "h-full w-full text-primary/[0.06]",
+        className: "h-full w-full text-primary/[0.07]",
         strokeWidth: 1,
       }
     );
@@ -31,7 +31,11 @@ export function SkillCard({
   return (
     <m.div
       initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      animate={
+        isInView
+          ? { opacity: 1, y: 0, transform: "translateY(0px) translateZ(0)" }
+          : { opacity: 0, y: 30 }
+      }
       transition={{ duration: 0.5, ease: "easeOut", delay }}
       className="group relative"
     >
