@@ -67,3 +67,11 @@ body {
 .glow-primary:hover {
   box-shadow: 0 0 25px hsl(270 70% 60% / 0.5), 0 0 50px hsl(270 70% 60% / 0.3);
 }
+
+.glow-primary-dimmer {
+  box-shadow: 0 0 16px hsl(270 70% 60% / 0.25), 0 0 32px hsl(270 70% 60% / 0.12);
+}
+
+.glow-primary-dimmer:hover {
+  box-shadow: 0 0 25px hsl(270 70% 60% / 0.5), 0 0 50px hsl(270 70% 60% / 0.3);
+}
