@@ -47,16 +47,10 @@ const projects = [
 
 export function Projects() {
   const sectionRef = useRef(null);
-  const projectsRef = useRef(null);
 
   const isInView = useInView(sectionRef, {
     once: true,
     amount: 0.2,
-  });
-
-  const projectsInView = useInView(projectsRef, {
-    once: true,
-    amount: 0.1,
   });
 
   return (
@@ -88,13 +82,11 @@ export function Projects() {
             e-commerce and company websites.
           </m.p>
 
-          <div ref={projectsRef} className="space-y-20 md:space-y-32">
+          <div className="space-y-20 md:space-y-32">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.title}
                 {...project}
-                isInView={projectsInView}
-                delay={index * 0.15}
                 reverse={index % 2 === 1}
               />
             ))}
