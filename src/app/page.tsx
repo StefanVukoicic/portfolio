@@ -7,7 +7,10 @@ export default function Home() {
       <Hero />
       <About />
 
-      <section id="projects" className="min-h-screen px-6 py-24">
+      <section
+        id="projects"
+        className="min-h-screen px-6 py-24 bg-linear-to-b from-transparent via-primary/10 to-primary/5"
+      >
         <div className="mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold">Projects</h2>
           <p className="mt-4 text-muted-foreground">Coming soon...</p>
