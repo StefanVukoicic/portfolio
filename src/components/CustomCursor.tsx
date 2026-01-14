@@ -1,16 +1,26 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [hoverElement, setHoverElement] = useState<string | null>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
+
+    const checkTouch = () => {
+      setIsTouchDevice(
+        "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0 ||
+          window.matchMedia("(pointer: coarse)").matches
+      );
+    };
+
+    checkTouch();
+    window.addEventListener("resize", checkTouch);
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -51,15 +61,15 @@ export function CustomCursor() {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("resize", checkTouch);
     };
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || isTouchDevice) return null;
 
   const isProject = hoverElement === "project";
   const isButton = hoverElement === "button";
   const isLink = hoverElement === "link";
-  const isHovering = hoverElement !== null;
 
   const dotSize = isProject ? 80 : isButton ? 50 : isLink ? 40 : 12;
   const ringSize = isProject ? 0 : isButton ? 70 : isLink ? 60 : 40;
@@ -67,7 +77,6 @@ export function CustomCursor() {
   return (
     <>
       <div
-        ref={dotRef}
         style={{
           position: "fixed",
           left: position.x,
@@ -100,7 +109,6 @@ export function CustomCursor() {
       </div>
 
       <div
-        ref={ringRef}
         style={{
           position: "fixed",
           left: position.x,

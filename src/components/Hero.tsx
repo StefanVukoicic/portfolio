@@ -48,15 +48,13 @@ export function Hero() {
             transition={{ duration: 1.5, ease: "easeOut" }}
           >
             <MatrixFXWorker
-              speed={0.5}
               colors={["#8b5cf6", "#7c3aed", "#6d28d9", "#5b21b6"]}
               size={4}
-              spacing={2}
               trigger="instant"
               bulge={{
                 type: "wave",
                 duration: 4,
-                intensity: 15,
+                intensity: 17,
                 repeat: true,
               }}
               fps={28}
@@ -98,8 +96,8 @@ export function Hero() {
             />
           </h1>
 
-          <AnimatedLine delay={1}>
-            <p className="mx-auto max-w-2xl text-xl md:text-2xl text-muted-foreground mb-12">
+          <AnimatedLine delay={1} className="mb-12">
+            <p className="mx-auto max-w-2xl text-xl md:text-2xl text-muted-foreground">
               Building interfaces used by{" "}
               <span className="text-foreground font-medium">
                 thousands of users
@@ -155,7 +153,7 @@ export function Hero() {
           </m.div>
         </m.div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[2] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent z-2 pointer-events-none" />
       </m.section>
     </LazyMotion>
   );

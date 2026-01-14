@@ -183,9 +183,6 @@ const MatrixFXWorker = React.forwardRef<HTMLDivElement, MatrixFXWorkerProps>(
 
     useEffect(() => {
       if (!workerRef.current || !isTransferredRef.current) return;
-
-      // For now I need to restart the worker to change conf
-      // I should add "updateConfig" message type
     }, [
       speed,
       colors,

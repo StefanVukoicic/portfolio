@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   LazyMotion,
   domAnimation,
@@ -10,7 +10,7 @@ import {
   useInView,
 } from "motion/react";
 import { AnimatedText, AnimatedLine } from "./AnimatedText";
-import { CodeXml, Palette, Database, Wrench } from "lucide-react";
+import { CodeXml, Palette, DatabaseZap, Wrench } from "lucide-react";
 
 const expertise = [
   {
@@ -25,7 +25,7 @@ const expertise = [
   },
   {
     category: "State & Data",
-    icon: Database,
+    icon: DatabaseZap,
     skills: ["Redux", "Zustand", "Apollo GraphQL", "REST APIs"],
   },
   {
@@ -36,17 +36,71 @@ const expertise = [
 ];
 
 const stats = [
-  { value: "4+", label: "Years Experience" },
-  { value: "20+", label: "Projects Delivered" },
-  { value: "100K+", label: "Users Reached" },
+  { value: 4, suffix: "+", label: "Years Experience" },
+  { value: 20, suffix: "+", label: "Projects Delivered" },
+  { value: 50, suffix: "K+", label: "Users Reached" },
 ];
+
+function CountUp({
+  value,
+  suffix,
+  isInView,
+  delay = 0,
+  easeOut = false,
+}: {
+  value: number;
+  suffix: string;
+  isInView: boolean;
+  delay?: number;
+  easeOut?: boolean;
+}) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const delayTimeout = setTimeout(() => {
+      const duration = 1500;
+      const startTime = performance.now();
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        let progress = Math.min(elapsed / duration, 1);
+
+        if (easeOut) {
+          progress = 1 - Math.pow(1 - progress, 3);
+        }
+
+        const currentValue = Math.floor(progress * value);
+        setCount(currentValue);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setCount(value);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }, delay);
+
+    return () => clearTimeout(delayTimeout);
+  }, [isInView, value, delay, easeOut]);
+
+  return (
+    <span>
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 export function AboutNew() {
   const sectionRef = useRef(null);
-  const contentRef = useRef(null);
+  const statsRef = useRef(null);
 
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
-  const statsInView = useInView(contentRef, { once: true, amount: 0.3 });
+  const statsInView = useInView(statsRef, { once: true, amount: 0.5 });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -74,7 +128,6 @@ export function AboutNew() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
-          {/* Header */}
           <div className="mb-20">
             <AnimatedLine>
               <span className="text-sm uppercase tracking-[0.3em] text-primary">
@@ -86,9 +139,7 @@ export function AboutNew() {
             </h2>
           </div>
 
-          {/* Main content */}
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 mb-24">
-            {/* Left - Bio */}
             <div>
               <m.p
                 className="text-2xl md:text-3xl text-foreground font-light leading-relaxed mb-8"
@@ -121,21 +172,25 @@ export function AboutNew() {
               </m.p>
             </div>
 
-            {/* Right - Stats */}
-            <div ref={contentRef} className="flex flex-col justify-center">
-              <div className="grid grid-cols-3 gap-4">
+            <div ref={statsRef} className="flex flex-col justify-center">
+              <div className="space-y-8">
                 {stats.map((stat, index) => (
                   <m.div
                     key={stat.label}
-                    className="text-center p-6 rounded-2xl bg-white/5 border border-white/10"
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    animate={statsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                    transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={statsInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: index * 0.3 }}
                   >
-                    <span className="block text-4xl md:text-5xl font-bold text-primary mb-2">
-                      {stat.value}
+                    <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-primary">
+                      <CountUp
+                        value={stat.value}
+                        suffix={stat.suffix}
+                        isInView={statsInView}
+                        delay={index * 500}
+                        easeOut={index === 2}
+                      />
                     </span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-base sm:text-lg md:text-xl text-muted-foreground">
                       {stat.label}
                     </span>
                   </m.div>
@@ -144,7 +199,6 @@ export function AboutNew() {
             </div>
           </div>
 
-          {/* Skills Grid */}
           <m.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -160,7 +214,6 @@ export function AboutNew() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.7 + groupIndex * 0.1 }}
                 >
-                  {/* Watermark icon - behind the card */}
                   <div className="absolute -right-6 -bottom-6 pointer-events-none">
                     <group.icon
                       className="h-32 w-32 text-primary"
@@ -168,7 +221,6 @@ export function AboutNew() {
                     />
                   </div>
 
-                  {/* Card with semi-transparent background */}
                   <div className="relative p-6 bg-background/90 border border-white/10 hover:border-primary/50 transition-colors duration-300 h-full rounded-2xl">
                     <h4 className="text-primary font-medium mb-4 text-sm uppercase tracking-wider">
                       {group.category}
