@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
 import "./globals.css";
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-});
+import { MouseProvider } from "@/context/MouseContext";
+import { CustomCursor } from "@/components/CustomCursor";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { Manrope } from "next/font/google";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://stefanvukoicic-dev.vercel.app"),
   title: "Stefan Vukoičić | Frontend Developer",
   description:
     "Frontend developer based in Serbia with 4+ years of experience. I care about performance, accessibility, reusability, and clean code.",
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Stefan Vukoičić",
     images: [
       {
-        url: "/thumbnail.webp",
+        url: "/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Stefan Vukoičić - Frontend Developer",
@@ -33,9 +32,14 @@ export const metadata: Metadata = {
     title: "Stefan Vukoičić | Frontend Developer",
     description:
       "Frontend developer based in Serbia with 4+ years of experience.",
-    images: ["/thumbnail.webp"],
+    images: ["/og-image.webp"],
   },
 };
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+});
 
 export default function RootLayout({
   children,
@@ -44,7 +48,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} antialiased`}>{children}</body>
+      <body className={`${manrope.variable} font-sans antialiased cursor-none`}>
+        <MouseProvider>
+          <SmoothScroll>
+            <CustomCursor />
+            {children}
+          </SmoothScroll>
+        </MouseProvider>
+      </body>
     </html>
   );
 }

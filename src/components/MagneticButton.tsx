@@ -1,0 +1,70 @@
+"use client";
+
+import { useRef, useState, ReactNode } from "react";
+import { m } from "motion/react";
+import { useMouse } from "@/context/MouseContext";
+
+interface MagneticButtonProps {
+  children: ReactNode;
+  className?: string;
+  href?: string;
+  onClick?: () => void;
+  strength?: number;
+}
+
+export function MagneticButton({
+  children,
+  className = "",
+  href,
+  onClick,
+  strength = 0.3,
+}: MagneticButtonProps) {
+  const buttonRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const { setHoverElement } = useMouse();
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const distanceX = e.clientX - centerX;
+    const distanceY = e.clientY - centerY;
+
+    setPosition({
+      x: distanceX * strength,
+      y: distanceY * strength,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+    setHoverElement(null);
+  };
+
+  const handleMouseEnter = () => {
+    setHoverElement("button");
+  };
+
+  const Component = href ? m.a : m.div;
+  const props = href
+    ? { href, target: "_blank", rel: "noopener noreferrer" }
+    : { onClick };
+
+  return (
+    <Component
+      ref={buttonRef as any}
+      {...props}
+      className={`inline-block ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 350, damping: 15 }}
+    >
+      {children}
+    </Component>
+  );
+}
