@@ -48,19 +48,35 @@ export function MagneticButton({
     setHoverElement("button");
   };
 
-  const Component = href ? m.a : m.div;
-  const props = href
+  const handleClick = () => {
+    if (href?.startsWith("#")) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (href) {
+      window.open(href, "_blank", "noopener,noreferrer");
+    }
+    onClick?.();
+  };
+
+  const isInternalLink = href?.startsWith("#");
+  const isExternalLink = href && !isInternalLink;
+
+  const Component = isExternalLink ? m.a : m.div;
+  const props = isExternalLink
     ? { href, target: "_blank", rel: "noopener noreferrer" }
-    : { onClick };
+    : {};
 
   return (
     <Component
       ref={buttonRef as any}
       {...props}
-      className={`inline-block ${className}`}
+      className={`inline-block cursor-none ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
+      onClick={handleClick}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 350, damping: 15 }}
     >
