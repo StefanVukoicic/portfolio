@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Stefan Vukoičić",
     images: [
       {
-        url: "/og-image.webp",
+        url: "/thumbnail.webp",
         width: 1200,
         height: 630,
         alt: "Stefan Vukoičić - Frontend Developer",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Stefan Vukoičić | Frontend Developer",
     description:
       "Frontend developer based in Serbia with 4+ years of experience.",
-    images: ["/og-image.webp"],
+    images: ["/thumbnail.webp"],
   },
 };
 
