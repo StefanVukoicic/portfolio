@@ -8,7 +8,7 @@ const experiences = [
   {
     role: "Frontend Developer",
     company: "Canndyland",
-    period: "Jul 2024 - Nov 2024",
+    period: "Jul 2024 - Nov 2025",
     description:
       "Led a complete visual and functional redesign of the e-commerce platform, delivering a modern, responsive experience across desktop and mobile. Improved site performance and user engagement through optimized component architecture and smooth animations.",
     highlights: [
