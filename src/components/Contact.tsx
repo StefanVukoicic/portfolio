@@ -29,8 +29,8 @@ const contactLinks = [
   },
   {
     label: "LinkedIn",
-    value: "stefan-vukoicic",
-    href: "https://www.linkedin.com/in/stefan-vukoicic/",
+    value: "Stefan Vukoicic",
+    href: "https://www.linkedin.com/in/dev-stefanv/",
     icon: Linkedin,
   },
   {
