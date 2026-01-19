@@ -35,8 +35,8 @@ const contactLinks = [
   },
   {
     label: "GitHub",
-    value: "stefanvukoicic9",
-    href: "https://github.com/stefanvukoicic9",
+    value: "Stefan Vukoicic",
+    href: "https://github.com/StefanVukoicic",
     icon: Github,
   },
 ];
