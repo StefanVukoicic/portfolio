@@ -72,6 +72,7 @@ export function MagneticButton({
     <Component
       ref={buttonRef as any}
       {...props}
+      data-cursor="button"
       className={`inline-block cursor-none ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

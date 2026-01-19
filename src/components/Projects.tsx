@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { m, useInView } from "motion/react";
+import { LazyMotion, domAnimation } from "motion/react";
 import { useMouse } from "@/context/MouseContext";
 import Image from "next/image";
-import { AnimatedLine } from "./AnimatedText";
+import { AnimatedLine, AnimatedText } from "./AnimatedText";
 
 const projects = [
   {
@@ -120,7 +120,6 @@ function ProjectCard({
 export function ProjectsHorizontal() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true });
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -131,7 +130,6 @@ export function ProjectsHorizontal() {
       const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Calculate how far we've scrolled through the section
       const scrollableDistance = sectionHeight - viewportHeight;
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
@@ -148,70 +146,66 @@ export function ProjectsHorizontal() {
   const translateX = scrollProgress * -66;
 
   return (
-    <section ref={sectionRef} id="projects" className="relative h-[300vh]">
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
-        <div className="absolute inset-0 bg-linear-to-b from-background via-primary/5 to-background pointer-events-none" />
+    <LazyMotion features={domAnimation}>
+      <section ref={sectionRef} id="projects" className="relative h-[300vh]">
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
+          <div className="absolute inset-0 bg-linear-to-b from-background via-primary/5 to-background pointer-events-none" />
 
-        <div
-          ref={titleRef}
-          className="relative z-10 px-6 md:px-12 pt-12 md:pt-16 shrink-0"
-        >
-          <AnimatedLine>
-            <span className="text-sm uppercase tracking-[0.3em] text-primary">
-              Selected Work
-            </span>
-          </AnimatedLine>
-          <m.h2
-            className="text-4xl md:text-6xl font-bold mt-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Projects
-          </m.h2>
-        </div>
-
-        <div className="flex-1 flex items-center overflow-hidden">
           <div
-            className="flex gap-8 pl-6 md:pl-12"
-            style={{
-              transform: `translateX(${translateX}%)`,
-              transition: "transform 0.1s ease-out",
-            }}
+            ref={titleRef}
+            className="relative z-10 px-6 md:px-12 pt-12 md:pt-16 shrink-0"
           >
-            {projects.map((project, i) => (
-              <ProjectCard key={project.title} project={project} index={i} />
-            ))}
+            <AnimatedLine>
+              <span className="text-sm uppercase tracking-[0.3em] text-primary">
+                Selected Work
+              </span>
+            </AnimatedLine>
+            <h2 className="text-4xl md:text-6xl font-bold mt-4">
+              <AnimatedText text="Projects" delay={0.2} />
+            </h2>
+          </div>
 
-            {/* CTA */}
-            <div className="shrink-0 w-[60vw] flex items-center justify-center">
-              <a
-                href="#contact"
-                className="text-3xl md:text-5xl font-bold text-primary hover:underline underline-offset-8 cursor-none"
-              >
-                Let's talk →
-              </a>
+          <div className="flex-1 flex items-center overflow-hidden">
+            <div
+              className="flex gap-8 pl-6 md:pl-12"
+              style={{
+                transform: `translateX(${translateX}%)`,
+                transition: "transform 0.1s ease-out",
+              }}
+            >
+              {projects.map((project, i) => (
+                <ProjectCard key={project.title} project={project} index={i} />
+              ))}
+
+              <div className="shrink-0 w-[85vw] md:w-[70vw] lg:w-[55vw] flex items-center justify-center">
+                <a
+                  href="#contact"
+                  className="text-3xl md:text-5xl font-bold text-primary hover:underline underline-offset-8 cursor-none"
+                >
+                  Let's talk →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative z-10 px-6 md:px-12 pb-8 shrink-0">
+            <div className="flex items-center gap-4">
+              <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                Scroll
+              </span>
+              <div className="flex-1 h-px bg-white/20 overflow-hidden">
+                <div
+                  className="h-full bg-primary origin-left"
+                  style={{ transform: `scaleX(${scrollProgress})` }}
+                />
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {projects.length} projects
+              </span>
             </div>
           </div>
         </div>
-
-        <div className="relative z-10 px-6 md:px-12 pb-8 shrink-0">
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-muted-foreground uppercase tracking-wider">
-              Scroll
-            </span>
-            <div className="flex-1 h-px bg-white/20 overflow-hidden">
-              <div
-                className="h-full bg-primary origin-left"
-                style={{ transform: `scaleX(${scrollProgress})` }}
-              />
-            </div>
-            <span className="text-xs text-muted-foreground">
-              {projects.length} projects
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </LazyMotion>
   );
 }

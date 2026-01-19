@@ -15,7 +15,7 @@ export function CustomCursor() {
       setIsTouchDevice(
         "ontouchstart" in window ||
           navigator.maxTouchPoints > 0 ||
-          window.matchMedia("(pointer: coarse)").matches
+          window.matchMedia("(pointer: coarse)").matches,
       );
     };
 
@@ -30,8 +30,9 @@ export function CustomCursor() {
       const target = e.target as HTMLElement;
 
       if (
+        target.closest('[data-cursor="project"]') ||
         target.closest(
-          'a[href*="canndyland"], a[href*="preferenca"], a[href*="standard801"]'
+          'a[href*="canndyland"], a[href*="preferenca"], a[href*="standard801"]',
         )
       ) {
         setHoverElement("project");
@@ -39,15 +40,15 @@ export function CustomCursor() {
       }
 
       if (
+        target.closest('[data-cursor="button"]') ||
         target.closest("button") ||
-        target.closest('a[href^="#"]') ||
         target.closest(".magnetic-button")
       ) {
         setHoverElement("button");
         return;
       }
 
-      if (target.closest("a")) {
+      if (target.closest('a[href^="#"]') || target.closest("a")) {
         setHoverElement("link");
         return;
       }
@@ -85,7 +86,7 @@ export function CustomCursor() {
           height: dotSize,
           marginLeft: -dotSize / 2,
           marginTop: -dotSize / 2,
-          backgroundColor: isProject ? "white" : "white",
+          backgroundColor: "white",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 99999,
@@ -120,7 +121,7 @@ export function CustomCursor() {
           border: "2px solid rgba(255, 255, 255, 0.5)",
           borderRadius: "50%",
           pointerEvents: "none",
-          zIndex: 99999,
+          zIndex: 99998,
           transition:
             "width 0.3s ease, height 0.3s ease, margin 0.3s ease, opacity 0.2s ease",
           opacity: isProject ? 0 : 1,

@@ -102,7 +102,7 @@ export function AnimatedLine({
         initial={{ y: "100%" }}
         animate={isInView ? { y: 0 } : { y: "100%" }}
         transition={{
-          duration: 0.8,
+          duration: 1.2,
           ease: [0.16, 1, 0.3, 1],
           delay,
         }}
