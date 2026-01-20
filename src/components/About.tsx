@@ -97,10 +97,18 @@ function CountUp({
 
 export function AboutNew() {
   const sectionRef = useRef(null);
-  const statsRef = useRef(null);
+  const mobileStatsRef = useRef(null);
+  const desktopStatsRef = useRef(null);
 
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
-  const statsInView = useInView(statsRef, { once: true, amount: 0.5 });
+  const mobileStatsInView = useInView(mobileStatsRef, {
+    once: true,
+    amount: 0.3,
+  });
+  const desktopStatsInView = useInView(desktopStatsRef, {
+    once: true,
+    amount: 0.5,
+  });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -122,7 +130,7 @@ export function AboutNew() {
         </m.div>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none hidden md:block">
-          <span className="text-[15vw] font-bold text-white/2 whitespace-nowrap">
+          <span className="text-[15vw] font-bold text-white/[0.02] whitespace-nowrap">
             ABOUT
           </span>
         </div>
@@ -218,20 +226,20 @@ export function AboutNew() {
             </m.div>
           </div>
 
-          <div ref={statsRef} className="lg:hidden mb-16">
+          <div ref={mobileStatsRef} className="lg:hidden mb-16">
             <div className="space-y-8">
               {stats.map((stat, index) => (
                 <m.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={statsInView ? { opacity: 1, y: 0 } : {}}
+                  animate={mobileStatsInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.3 }}
                 >
                   <span className="block text-5xl sm:text-6xl font-bold text-primary">
                     <CountUp
                       value={stat.value}
                       suffix={stat.suffix}
-                      isInView={statsInView}
+                      isInView={mobileStatsInView}
                       delay={index * 500}
                       easeOut={index === 2}
                     />
@@ -288,7 +296,7 @@ export function AboutNew() {
           </m.div>
 
           <m.div
-            ref={statsRef}
+            ref={desktopStatsRef}
             className="hidden lg:block"
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -300,14 +308,14 @@ export function AboutNew() {
                   key={stat.label}
                   className="flex-1"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={statsInView ? { opacity: 1, y: 0 } : {}}
+                  animate={desktopStatsInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.3 }}
                 >
                   <span className="block text-6xl xl:text-7xl font-bold text-primary">
                     <CountUp
                       value={stat.value}
                       suffix={stat.suffix}
-                      isInView={statsInView}
+                      isInView={desktopStatsInView}
                       delay={index * 500}
                       easeOut={index === 2}
                     />

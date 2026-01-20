@@ -121,6 +121,16 @@ export function ProjectsHorizontal() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -143,7 +153,7 @@ export function ProjectsHorizontal() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const translateX = scrollProgress * -66;
+  const translateX = scrollProgress * (isMobile ? -75 : -66);
 
   return (
     <LazyMotion features={domAnimation}>

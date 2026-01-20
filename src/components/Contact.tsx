@@ -73,7 +73,7 @@ export function Contact() {
   };
 
   const handleSubjectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, subject: value }));
+    setFormData((prev) => ({ ...prev, subject: value, budgetRange: "" }));
     setError("");
   };
 
@@ -109,7 +109,10 @@ export function Contact() {
     }
   };
 
-  const showBudgetField = formData.subject !== "";
+  const showBudgetField =
+    formData.subject === "job" ||
+    formData.subject === "project" ||
+    formData.subject === "consulting";
   const budgetLabel =
     formData.subject === "job" ? "Salary Range" : "Budget Range";
 
@@ -238,7 +241,7 @@ export function Contact() {
                       value={formData.subject}
                       onValueChange={handleSubjectChange}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger aria-label="Select a subject">
                         <SelectValue placeholder="Select a subject" />
                       </SelectTrigger>
                       <SelectContent>
@@ -275,8 +278,8 @@ export function Contact() {
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-colors"
                         placeholder={
                           formData.subject === "job"
-                            ? "e.g. $30k - $100k"
-                            : "e.g. $2.5k - $8k"
+                            ? "e.g. $80k - $120k"
+                            : "e.g. $5k - $10k"
                         }
                       />
                     </m.div>
@@ -324,7 +327,6 @@ export function Contact() {
               )}
             </m.div>
 
-            {/* Contact Links */}
             <m.div
               className="flex flex-col justify-center"
               initial={{ opacity: 0, x: 30 }}
@@ -366,7 +368,6 @@ export function Contact() {
             </m.div>
           </div>
 
-          {/* Footer */}
           <m.p
             className="mt-24 text-sm text-muted-foreground text-center"
             initial={{ opacity: 0 }}
